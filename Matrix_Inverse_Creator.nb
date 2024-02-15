@@ -1,0 +1,348 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12699,        340]
+NotebookOptionsPosition[     11766,        320]
+NotebookOutlinePosition[     12182,        336]
+CellTagsIndexPosition[     12139,        333]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ StyleBox["Matrix Inverse Creator",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontVariations->{"Underline"->True}],
+ " :\n",
+ StyleBox["Description",
+  FontSlant->"Italic"],
+ " : Script for creating an integer matrix whose inverse is integer using LU \
+factorization\n",
+ StyleBox["Authors: Ryan H. Allaire, Andrew Lee, and Margaret Reynolds",
+  FontSlant->"Italic"],
+ "\n"
+}], "Text",
+ CellChangeTimes->{{3.8561866813370476`*^9, 3.856186750140029*^9}, {
+  3.856186815051992*^9, 3.856186819108863*^9}, {3.8619494280881166`*^9, 
+  3.8619494467550335`*^9}, {3.9158925299089527`*^9, 3.915892557541815*^9}, {
+  3.915893693734662*^9, 
+  3.9158937460862713`*^9}},ExpressionUUID->"27dd5539-3ce5-4fa4-a426-\
+cebc0a741759"],
+
+Cell[TextData[{
+ StyleBox["Step 1",
+  FontWeight->"Bold"],
+ ": Choose an ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       StyleBox["L", "TI"], TraditionalForm], "errors" -> {}, "input" -> "L", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "67103e68-2e73-4c80-bdcb-7f71923702a9"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       StyleBox["U", "TI"], TraditionalForm], "errors" -> {}, "input" -> "U", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "af3a0762-ccd1-46ed-bce0-b5059c3bb181"],
+ " so that ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{"det", 
+         RowBox[{"(", 
+           StyleBox["U", "TI"], ")"}], "det", 
+         RowBox[{"(", 
+           StyleBox["L", "TI"], ")"}], "\[LongEqual]", "\[PlusMinus]", "1"}], 
+       TraditionalForm], "errors" -> {}, "input" -> "\\det(U)\\det(L)=\\pm 1",
+      "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "430aaf37-9352-4436-a1a8-0ba63dc6b341"],
+ ".\n",
+ StyleBox["(i) Choose the diagonal of U to be rational.\n(ii) If ",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["u", "TI"], 
+          RowBox[{
+            StyleBox["i", "TI"], 
+            StyleBox["i", "TI"]}]], "\[LongEqual]", "\[PlusMinus]", "1"}], 
+       TraditionalForm], "errors" -> {}, "input" -> "u_{ii}=\\pm 1", "state" -> 
+     "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "bd25fc87-1e02-4821-a94a-5f1efea11e1a"],
+ ", then replace ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["l", "TI"], 
+        RowBox[{
+          StyleBox["i", "TI"], 
+          StyleBox["i", "TI"]}]], TraditionalForm], "errors" -> {}, "input" -> 
+     "l_{ii}", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "1f31765c-4964-4e0a-b0dd-1db73c65b78c"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{"\[PlusMinus]", "1"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "\\pm 1", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "778a600d-a3b2-4e3d-b5c3-b688b1f940f1"],
+ ".\n",
+ StyleBox["(iii) If ",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["u", "TI"], 
+          RowBox[{
+            StyleBox["i", "TI"], 
+            StyleBox["i", "TI"]}]], "\[NotEqual]", "\[PlusMinus]", "1"}], 
+       TraditionalForm], "errors" -> {}, "input" -> "u_{ii} \\neq \\pm 1", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "8508bbf1-5b42-4629-bd6e-17e461107800"],
+ ", replace ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["l", "TI"], 
+        RowBox[{
+          StyleBox["i", "TI"], 
+          StyleBox["i", "TI"]}]], TraditionalForm], "errors" -> {}, "input" -> 
+     "l_{ii}", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "59abc2e3-5462-44df-b23a-b1167391f1ac"],
+ " by ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{"1", "/", 
+         RowBox[{"(", 
+           SubscriptBox[
+            StyleBox["u", "TI"], 
+            RowBox[{
+              StyleBox["i", "TI"], 
+              StyleBox["i", "TI"]}]], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> "1/(u_{ii})", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "95df5a5a-7a67-4613-a846-bfefbe2276cc"],
+ " and then fill the remaining column of ",
+ Cell[BoxData[
+  FormBox["L", TraditionalForm]],ExpressionUUID->
+  "ab2740e7-a075-4e67-acab-2e97ac3bb249"],
+ " with multiples of ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["l", "TI"], 
+        RowBox[{
+          StyleBox["i", "TI"], 
+          StyleBox["i", "TI"]}]], TraditionalForm], "errors" -> {}, "input" -> 
+     "l_{ii}", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "aa290eb8-8b1d-408f-9c17-446b1ce60c94"],
+ ".\[LineSeparator](iv) Fill in the remainder of ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       StyleBox["L", "TI"], TraditionalForm], "errors" -> {}, "input" -> "L", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "19410d90-f654-48b8-a0f6-fd216106407c"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       StyleBox["U", "TI"], TraditionalForm], "errors" -> {}, "input" -> "U", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b4c17506-3bb4-438b-8d28-a146ca2fe1d9"],
+ " with integer coefficients."
+}], "Text",
+ CellChangeTimes->{{3.8619494681712685`*^9, 3.8619494993753643`*^9}, {
+  3.861949541993104*^9, 3.8619495429573035`*^9}, {3.861949921377571*^9, 
+  3.8619500063831863`*^9}, {3.861950068112517*^9, 3.8619500819468746`*^9}, {
+  3.9158927276062365`*^9, 3.9158927682312684`*^9}, {3.9158928481528687`*^9, 
+  3.915892860853821*^9}, {3.915892901717681*^9, 3.9158931005188046`*^9}, {
+  3.915893614397834*^9, 
+  3.9158936263485823`*^9}},ExpressionUUID->"1ab0b0a6-d4fb-4092-af1a-\
+01382cef3ba1"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "Choose", " ", "diagonal", " ", "elements", " ", "of", " ", "L"}], " ", 
+     "&"}], " ", "U"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "Choose", " ", "random", " ", "integer", " ", "below", " ", "diagonal", 
+      " ", "components", " ", "of", " ", "L"}], " ", "&"}], " ", "above", " ",
+     "diagonal", " ", "components", " ", "of", " ", "U"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"L", " ", "=", " ", 
+    RowBox[{"(", GridBox[{
+       {"1", "0", "0"},
+       {"\[Placeholder]", "1", "0"},
+       {"\[Placeholder]", "\[Placeholder]", "1"}
+      }], ")"}]}], ";", " ", 
+   RowBox[{"U", " ", "=", " ", 
+    RowBox[{"(", GridBox[{
+       {"\[Placeholder]", "\[Placeholder]", "\[Placeholder]"},
+       {"0", "\[Placeholder]", "\[Placeholder]"},
+       {"0", "0", "\[Placeholder]"}
+      }], ")"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Error", " ", "Printing"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{"Det", "[", "L", "]"}], "]"}], "*", 
+     RowBox[{"Abs", "[", 
+      RowBox[{"Det", "[", "U", "]"}], "]"}]}], "==", "1"}], ",", " ", 
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<det(A)= \>\"", ",", 
+     RowBox[{
+      RowBox[{"Det", "[", "L", "]"}], "*", 
+      RowBox[{"Det", "[", "U", "]"}]}], ",", 
+     "\"\<\\t Success! Continue...\>\""}], "]"}], ",", " ", 
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<det(A) = \>\"", ",", " ", 
+     RowBox[{
+      RowBox[{"Det", "[", "L", "]"}], "*", 
+      RowBox[{"Det", "[", "U", "]"}]}], ",", " ", 
+     "\"\<Try different numbers per (ii)-(iii) above\>\""}], "]"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.8517065329993973`*^9, 3.851706542949527*^9}, {
+  3.8517065779735975`*^9, 3.8517066310929976`*^9}, {3.8561871472610865`*^9, 
+  3.8561871646029606`*^9}, {3.856187608027484*^9, 3.856187628776535*^9}, {
+  3.8619495089358854`*^9, 3.8619495316548195`*^9}, {3.861949580692291*^9, 
+  3.861949596924204*^9}, {3.861949632572358*^9, 3.861949678558774*^9}, {
+  3.8619499089290247`*^9, 3.861949910664053*^9}, {3.861950024306633*^9, 
+  3.8619500431509876`*^9}, {3.915893322438717*^9, 3.915893514487789*^9}, {
+  3.9158935989219956`*^9, 3.9158936010936546`*^9}, {3.9158941488709397`*^9, 
+  3.9158941550305166`*^9}, {3.917018508901349*^9, 
+  3.917018647698514*^9}},ExpressionUUID->"d6935b87-58f2-49f2-9f8f-\
+4dfcab0ac3ad"],
+
+Cell[TextData[{
+ StyleBox["Step 2",
+  FontWeight->"Bold"],
+ ": Create the matrix A via LU factorization\n(v) Generate ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       StyleBox["A", "TI"], TraditionalForm], "errors" -> {}, "input" -> "A", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "3ba859e2-951d-44d5-a0fe-6a47f16b369b"],
+ " with ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{"det", 
+         RowBox[{"(", 
+           StyleBox["A", "TI"], ")"}], "\[LongEqual]", "\[PlusMinus]", "1"}], 
+       TraditionalForm], "errors" -> {}, "input" -> "\\det(A)=\\pm 1", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "e160faca-f54e-4247-9355-328efb4f4ca2"],
+ " via ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         StyleBox["A", "TI"], "\[LongEqual]", 
+         StyleBox["L", "TI"], 
+         StyleBox["U", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "A=LU", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4e6287d8-6fb8-4b30-8ce3-0c8351b2cfd3"],
+ ". Finding the inverse via row-reduction involves no fractions."
+}], "Text",
+ CellChangeTimes->{{3.861949546377915*^9, 3.8619495545738115`*^9}, {
+  3.8619497006951523`*^9, 3.861949708471566*^9}, {3.9158931110847273`*^9, 
+  3.915893147766693*^9}},ExpressionUUID->"d103df9b-e85b-4add-8475-\
+f166a2bef872"],
+
+Cell[BoxData[
+ RowBox[{"A", " ", "=", " ", 
+  RowBox[{"L", ".", "U"}]}]], "Input",
+ CellChangeTimes->{{3.8619497896530995`*^9, 3.861949876680243*^9}, {
+  3.915893681191804*^9, 3.915893681590951*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"c1dff21a-1e2a-4e15-a617-2a4657017228"],
+
+Cell[TextData[{
+ StyleBox["Step 3",
+  FontWeight->"Bold"],
+ ": Check the inverse"
+}], "Text",
+ CellChangeTimes->{{3.8619498816178226`*^9, 
+  3.8619498945942445`*^9}},ExpressionUUID->"12e5df7d-7c7e-4853-afe4-\
+2369aeaf2727"],
+
+Cell[BoxData[
+ RowBox[{"Inverse", "[", "A", "]"}]], "Input",
+ CellLabel->"In[46]:=",ExpressionUUID->"5db1d67a-f171-4481-abf9-d0fc95efccc2"]
+},
+WindowSize->{1438.5, 825.},
+WindowMargins->{{-3.5, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Creative/NaturalColor.nb",
+ExpressionUUID->"f2c1f2f7-2019-4c30-ae2a-2b611b8bb555"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 735, 19, 138, "Text",ExpressionUUID->"27dd5539-3ce5-4fa4-a426-cebc0a741759"],
+Cell[1296, 41, 5612, 151, 177, "Text",ExpressionUUID->"1ab0b0a6-d4fb-4092-af1a-01382cef3ba1"],
+Cell[6911, 194, 2679, 64, 348, "Input",ExpressionUUID->"d6935b87-58f2-49f2-9f8f-4dfcab0ac3ad"],
+Cell[9593, 260, 1520, 38, 79, "Text",ExpressionUUID->"d103df9b-e85b-4add-8475-f166a2bef872"],
+Cell[11116, 300, 278, 5, 60, "Input",ExpressionUUID->"c1dff21a-1e2a-4e15-a617-2a4657017228"],
+Cell[11397, 307, 223, 7, 47, "Text",ExpressionUUID->"12e5df7d-7c7e-4853-afe4-2369aeaf2727"],
+Cell[11623, 316, 139, 2, 60, "Input",ExpressionUUID->"5db1d67a-f171-4481-abf9-d0fc95efccc2"]
+}
+]
+*)
+
